@@ -1,0 +1,12 @@
+﻿@using MekToolsReduxComponents.Core.Layout
+<Router AppAssembly="@typeof(App).Assembly" AdditionalAssemblies="ExportedMekToolsComponentsAssemblies.All">
+  <Found Context="routeData">
+    <RouteView RouteData="@routeData" DefaultLayout="@typeof(MekMainLayout)"/>
+  </Found>
+  <NotFound>
+    <PageTitle>Not found</PageTitle>
+    <LayoutView >
+      <p role="alert">Sorry, there's nothing at this address.</p>
+    </LayoutView>
+  </NotFound>
+</Router>

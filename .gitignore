@@ -1,0 +1,21 @@
+﻿# Ide Stuff
+.idea
+.vs
+
+# Build 
+MekToolsReduxApp/bin
+MekToolsReduxApp/obj
+MekToolsReduxApp/MekToolsReduxApp.csproj.user
+
+MekToolsReduxComponents/bin
+MekToolsReduxComponents/obj
+
+MekToolsReduxCore/bin
+MekToolsReduxCore/obj
+
+MekToolsReduxWeb/bin
+MekToolsReduxWeb/obj
+
+
+
+
