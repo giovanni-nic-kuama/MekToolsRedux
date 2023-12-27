@@ -1,9 +1,16 @@
-﻿<button @onclick="OnClick" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 border border-blue-green rounded">
+﻿<button @onclick="OnButtonClick" type="@Type" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 border border-blue-green rounded">
   @Text
 </button>
 
 @code {
   [Parameter] public string Text { get; set; } = null!;
+  [Parameter] public string Type { get; set; } = null!;
 
-  [Parameter] public EventCallback OnClick { get; set; }
+  [Parameter] public EventCallback? OnClick { get; set; }
+
+  private void OnButtonClick()
+  {
+    OnClick?.InvokeAsync();
+  }
+
 }

@@ -1,0 +1,30 @@
+﻿@page "/"
+@using MekToolsReduxComponents.Modules.Index.Models
+@inject NavigationManager NavigationManager
+
+<div class="bg-green-200 flex-column h-screen">
+  <AppBar/>
+
+  <div class="flex justify-center mt-10">
+    <div class="w-2/3">
+      <Card Title=".NET Module Generator">
+        <ModuleCreateForm OnValidFormSubmit="OnValidFormSubmit"/>
+      </Card>
+    </div>
+  </div>
+</div>
+
+
+@code {
+
+  private void Navigate()
+  {
+    NavigationManager.NavigateTo(PageRoutes.MainPage);
+  }
+
+  private void OnValidFormSubmit(ModuleCreateModel model)
+  {
+    Console.WriteLine(model.DestinationPath);
+  }
+
+}

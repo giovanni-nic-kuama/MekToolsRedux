@@ -1,0 +1,52 @@
+﻿<EditForm
+  Model="@ModuleCreateModel"
+  OnValidSubmit="OnValidSubmit"
+  OnInvalidSubmit="OnFormInValid"
+  FormName="ModuleCreateForm">
+  <div class="flex-column">
+    <DataAnnotationsValidator/>
+
+    <div class="mt-3">
+      <label class="text-lg font-medium text-gray-900">
+        Entity singular name
+      </label>
+
+      <InputText
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
+        placeholder="Enter entity singular name"
+        @bind-Value="@ModuleCreateModel.EntitySingularName"/>
+    </div>
+
+    <ValidationMessage class="mt-0.5 text-sm text-red-600" For="() => ModuleCreateModel.EntitySingularName"/>
+
+    <div class="mt-3">
+      <label class="text-lg font-medium text-gray-900">
+        Entity plural name
+      </label>
+
+      <InputText
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
+        placeholder="Enter entity plural name"
+        @bind-Value="@ModuleCreateModel.EntityPluralName"/>
+    </div>
+
+    <ValidationMessage class="mt-0.5 text-sm text-red-600" For="() => ModuleCreateModel.EntityPluralName"/>
+
+    <div class="mt-3">
+      <label class="text-lg font-medium text-gray-900">
+        Destination path
+      </label>
+
+      <InputText
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
+        placeholder="Enter sestination path"
+        @bind-Value="@ModuleCreateModel.DestinationPath"/>
+    </div>
+
+    <ValidationMessage class="mt-0.5 text-sm text-red-600" For="() => ModuleCreateModel.DestinationPath"/>
+
+    <div class="flex justify-end mt-5">
+      <MekButton Text="Confirm" Type="submit" OnClick="@null"/>
+    </div>
+  </div>
+</EditForm>

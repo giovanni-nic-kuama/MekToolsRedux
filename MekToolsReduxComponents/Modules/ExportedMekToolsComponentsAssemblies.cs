@@ -1,5 +1,5 @@
 ﻿using System.Reflection;
-using MekToolsReduxComponents.Modules.Index;
+using MekToolsReduxComponents.Modules.Index.Pages;
 using MekToolsReduxComponents.Modules.Main;
 
 namespace MekToolsReduxComponents.Modules;
