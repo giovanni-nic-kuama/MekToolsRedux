@@ -44,6 +44,11 @@
     </div>
 
     <ValidationMessage class="mt-0.5 text-sm text-red-600" For="() => ModuleCreateModel.DestinationPath"/>
+    
+    @if (DirectoryHasAccessProblems)
+    {
+      <p class="mt-0.5 text-sm text-red-600">Cannot open/write files on @ModuleCreateModel.DestinationPath</p>
+    }
 
     <div class="flex justify-end mt-5">
       <MekButton Text="Confirm" Type="submit" OnClick="@null"/>

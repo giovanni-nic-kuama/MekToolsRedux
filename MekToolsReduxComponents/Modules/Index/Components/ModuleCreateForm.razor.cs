@@ -9,16 +9,52 @@ public partial class ModuleCreateForm
 
   private ModuleCreateModel ModuleCreateModel { get; set; } = new();
 
+  private bool DirectoryHasAccessProblems { get; set; }
+
   private void OnValidSubmit()
   {
-    Console.WriteLine("Valid submit");
-    // TODO: validate path exists and is writeable
-    OnValidFormSubmit.InvokeAsync(ModuleCreateModel);
+    var isPathValid = ValidatePath(ModuleCreateModel.DestinationPath);
+
+    if (isPathValid)
+    {
+      OnValidFormSubmit.InvokeAsync(ModuleCreateModel);
+      return;
+    }
+
+    DirectoryHasAccessProblems = true;
   }
 
   private void OnFormInValid()
   {
     // no-op 
+  }
+
+  private bool ValidatePath(string path)
+  {
+    var directoryExists = Directory.Exists(path);
+    Console.WriteLine("Directory Exists: " + directoryExists);
+
+    if (!directoryExists) return directoryExists;
+    var hasWritePermission = HasWritePermission(path);
+    Console.WriteLine("HasWritePermission: " + hasWritePermission);
+    
+    return directoryExists && hasWritePermission;
+
+  }
+
+  private static bool HasWritePermission(string filePath)
+  {
+    try
+    {
+      File.Create(Path.Combine(filePath, "temp.txt")).Close();
+      File.Delete(Path.Combine(filePath, "temp.txt"));
+    }
+    catch (UnauthorizedAccessException)
+    {
+      return false;
+    }
+
+    return true;
   }
 
   // TODO: working
@@ -31,10 +67,12 @@ public partial class ModuleCreateForm
       Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
 
     // Write the string array to a new file named "WriteLines.txt".
-    using (StreamWriter outputFile = new StreamWriter(Path.Combine(docPath, "WriteLines.txt")))
+    using (var outputFile = new StreamWriter(Path.Combine(docPath, "WriteLines.txt")))
     {
-      foreach (string line in lines)
-        outputFile.WriteLine(line);
+      foreach (var line in lines)
+      {
+        outputFile.WriteLine(line); 
+      }
     }
 
     Directory.CreateDirectory(Path.Combine("C:\\Users\\Noitu\\Desktop", "MODULES"));
