@@ -16,15 +16,13 @@
 
 
 @code {
-
-  private void Navigate()
+  private void Navigate(string entitySingularName, string entityPluralName, string destinationPath)
   {
-    NavigationManager.NavigateTo(PageRoutes.MainPage);
+    NavigationManager.NavigateTo(PageRoutes.MainPage + $"/{entitySingularName}/{entityPluralName}/{destinationPath}");
   }
 
   private void OnValidFormSubmit(ModuleCreateModel model)
   {
-    Console.WriteLine(model.DestinationPath);
+    Navigate(model.EntitySingularName, model.EntityPluralName, model.DestinationPath.Replace("\\", "@")); 
   }
-
 }

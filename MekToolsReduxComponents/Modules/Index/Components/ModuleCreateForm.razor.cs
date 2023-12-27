@@ -7,7 +7,13 @@ public partial class ModuleCreateForm
 {
   [Parameter] public EventCallback<ModuleCreateModel> OnValidFormSubmit { get; set; }
 
-  private ModuleCreateModel ModuleCreateModel { get; set; } = new();
+  // TODO: remove initialization
+  private ModuleCreateModel ModuleCreateModel { get; set; } = new()
+  {
+    DestinationPath = "C:\\Lavoro",
+    EntitySingularName = "Temperature",
+    EntityPluralName = "Temperatures"
+  };
 
   private bool DirectoryHasAccessProblems { get; set; }
 
@@ -29,6 +35,7 @@ public partial class ModuleCreateForm
     // no-op 
   }
 
+  // TODO: move into core
   private bool ValidatePath(string path)
   {
     var directoryExists = Directory.Exists(path);
@@ -42,6 +49,7 @@ public partial class ModuleCreateForm
 
   }
 
+  // TODO: move into core
   private static bool HasWritePermission(string filePath)
   {
     try
