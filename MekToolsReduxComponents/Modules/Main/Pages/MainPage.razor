@@ -1,0 +1,58 @@
+﻿@using MekToolsReduxCore.Modules.ProjectDirectories.Services
+@using MekToolsReduxCore.Modules.ProjectDirectories.Models
+@inherits LayoutComponentBase
+@page "/main-page/{*pageRoute}"
+
+<div class="bg-green-200 flex-column h-screen">
+  <AppBar/>
+
+  <div class="flex justify-center mt-10">
+    <div class="w-2/3">
+      <CurrentModuleDataCard
+        EntitySingularName="@EntitySingularName"
+        EntityPluralName="@EntityPluralName"
+        DestinationPath="@DestinationPath"/>
+    </div>
+  </div>
+
+  <div class="flex justify-center mt-10">
+    <div class="w-2/3">
+      <Card Title="Preview">
+        <FileTreePreview ModuleDirectory="ModuleDirectory" />
+      </Card>
+    </div>
+  </div>
+
+</div>
+
+@code {
+  [Parameter] public string? PageRoute { get; set; }
+
+  private string EntitySingularName { get; set; } = null!;
+
+  private string EntityPluralName { get; set; } = null!;
+
+  private string DestinationPath { get; set; } = null!;
+
+  private ModuleDirectory ModuleDirectory { get; set; } = null!;
+
+  protected override void OnInitialized()
+  {
+    var parameters = PageRoute?.Split("/") ?? new string[] { };
+
+    if (parameters.Length == 3)
+    {
+      EntitySingularName = parameters[0];
+      EntityPluralName = parameters[1];
+      DestinationPath = parameters[2].Replace("@", "\\");
+
+      ModuleDirectory = ModuleDirectoryService.GetPreview(singularName: EntitySingularName, pluralName: EntityPluralName);
+    }
+    else
+    {
+      // TODO: manage errors
+      // ERROR
+    }
+    base.OnInitialized();
+  }
+}

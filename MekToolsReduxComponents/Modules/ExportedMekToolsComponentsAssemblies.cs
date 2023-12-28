@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 using MekToolsReduxComponents.Modules.Index.Pages;
-using MekToolsReduxComponents.Modules.Main;
+using MekToolsReduxComponents.Modules.Main.Pages;
 
 namespace MekToolsReduxComponents.Modules;
 

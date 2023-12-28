@@ -1,0 +1,18 @@
+﻿<Card Title="Current module data">
+  <div class="grid grid-cols-2 gap-x-4">
+    <div class="font-bold text-md">Entity singular name:</div>
+    <div>@EntitySingularName</div>
+    <div class="font-bold text-md">Entity plural name:</div>
+    <div>@EntityPluralName</div>
+    <div class="font-bold text-md">Destination Path:</div>
+    <div>@DestinationPath</div>
+  </div>
+</Card>
+
+@code {
+  [Parameter] public string EntitySingularName { get; set; } = null!;
+
+  [Parameter] public string EntityPluralName { get; set; } = null!;
+
+  [Parameter] public string DestinationPath { get; set; } = null!;
+}
