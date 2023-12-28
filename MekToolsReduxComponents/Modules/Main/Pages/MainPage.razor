@@ -1,6 +1,7 @@
 ﻿@using MekToolsReduxCore.Modules.ModulePreviews.Models
 @using MekToolsReduxCore.Modules.ModulePreviews.Services
 @using MekToolsReduxComponents.Modules.Main.Models
+@using MekToolsReduxCore.Modules.ModuleGenerators.Services
 @using MekToolsReduxComponents.Modules.Main.Mappings
 @inherits LayoutComponentBase
 @page "/main-page/{*pageRoute}"
@@ -31,6 +32,10 @@
     <div class="w-2/3">
       <Card Title="Preview">
         <FileTreePreview ModulePreviewModel="ModulePreviewModel"/>
+
+        <div class="flex flex-row-reverse mt-10">
+          <MekButton Text="Genera" Type="Button" OnClick="@GenerateModule"/>
+        </div>
       </Card>
     </div>
   </div>
@@ -71,6 +76,11 @@
     }
 
     base.OnInitialized();
+  }
+
+  private void GenerateModule()
+  {
+    ModuleGeneratorService.GenerateModule(DestinationPath, ModulePreviewModel);
   }
 
   private void OnAdditionalSettingsChange(AdditionalSettingsFormModel model)

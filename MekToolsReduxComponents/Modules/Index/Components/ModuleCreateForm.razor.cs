@@ -1,4 +1,5 @@
 ﻿using MekToolsReduxComponents.Modules.Index.Models;
+using MekToolsReduxCore.Modules.ModuleGenerators.Services;
 using Microsoft.AspNetCore.Components;
 
 namespace MekToolsReduxComponents.Modules.Index.Components;
@@ -19,7 +20,7 @@ public partial class ModuleCreateForm
 
   private void OnValidSubmit()
   {
-    var isPathValid = ValidatePath(ModuleCreateModel.DestinationPath);
+    var isPathValid = ModuleGeneratorService.ValidatePath(ModuleCreateModel.DestinationPath);
 
     if (isPathValid)
     {
@@ -35,54 +36,9 @@ public partial class ModuleCreateForm
     // no-op 
   }
 
-  // TODO: move into core
-  private bool ValidatePath(string path)
+
+  private static void OnSubmitButtonClick()
   {
-    var directoryExists = Directory.Exists(path);
-    Console.WriteLine("Directory Exists: " + directoryExists);
-
-    if (!directoryExists) return directoryExists;
-    var hasWritePermission = HasWritePermission(path);
-    Console.WriteLine("HasWritePermission: " + hasWritePermission);
-    
-    return directoryExists && hasWritePermission;
-
-  }
-
-  // TODO: move into core
-  private static bool HasWritePermission(string filePath)
-  {
-    try
-    {
-      File.Create(Path.Combine(filePath, "temp.txt")).Close();
-      File.Delete(Path.Combine(filePath, "temp.txt"));
-    }
-    catch (UnauthorizedAccessException)
-    {
-      return false;
-    }
-
-    return true;
-  }
-
-  // TODO: working
-  private void WriteFile()
-  {
-    string[] lines = { "First line", "Second line", "Third line" };
-
-    // Set a variable to the Documents path.
-    string docPath =
-      Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-
-    // Write the string array to a new file named "WriteLines.txt".
-    using (var outputFile = new StreamWriter(Path.Combine(docPath, "WriteLines.txt")))
-    {
-      foreach (var line in lines)
-      {
-        outputFile.WriteLine(line); 
-      }
-    }
-
-    Directory.CreateDirectory(Path.Combine("C:\\Users\\Noitu\\Desktop", "MODULES"));
+    //no-op
   }
 }

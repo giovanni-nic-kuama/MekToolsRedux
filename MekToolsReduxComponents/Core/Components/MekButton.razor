@@ -6,11 +6,11 @@
   [Parameter] public string Text { get; set; } = null!;
   [Parameter] public string Type { get; set; } = null!;
 
-  [Parameter] public EventCallback? OnClick { get; set; }
+  [Parameter] public EventCallback OnClick { get; set; }
 
   private void OnButtonClick()
   {
-    OnClick?.InvokeAsync();
+    OnClick.InvokeAsync();
   }
 
 }
