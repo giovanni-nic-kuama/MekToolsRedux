@@ -4,40 +4,40 @@ namespace MekToolsReduxCore.Modules.ProjectDirectories.Services;
 
 public static class ModuleDirectoryService
 {
-  public static ModuleDirectory GetPreview(string singularName, string pluralName)
+  public static ModuleDirectory GetPreview(string singularName, string pluralName, bool enableEntityConfiguration)
   {
     var dtoTypes = new[] { "ReadDto", "CreateDto", "UpdateDto" };
-    
+
     var entityFile = new ModuleFile
     {
       Name = $"{singularName}.cs"
     };
-    
+
     var mappingsFile = new ModuleFile
     {
       Name = $"{singularName}Mappings.cs"
     };
-    
+
     var serviceInterfaceFile = new ModuleFile
     {
       Name = $"I{singularName}Service.cs"
     };
-    
+
     var repositoryFile = new ModuleFile
     {
       Name = $"I{singularName}Repository.cs"
     };
-    
+
     var serviceImplFile = new ModuleFile
     {
       Name = $"{singularName}Service.cs"
     };
-    
+
     var controllerFile = new ModuleFile
     {
       Name = $"{pluralName}Controller.cs"
     };
-    
+
     var controllersFolder = new SubModuleDirectory
     {
       Name = "Controllers",
@@ -47,8 +47,17 @@ public static class ModuleDirectoryService
       }
     };
 
+    var entitiesConfigurationFolder = new SubModuleDirectory
+    {
+      Name = "EntitiesConfiguration",
+      ModuleFiles = new List<ModuleFile>()
+      {
+        controllerFile
+      }
+    };
+
     var dtosFile = dtoTypes.Select(it => new ModuleFile { Name = $"{singularName}{it}.cs" }).ToList();
-    
+
     var dtosFolder = new SubModuleDirectory
     {
       Name = "Dtos",
@@ -72,7 +81,7 @@ public static class ModuleDirectoryService
         mappingsFile
       }
     };
-    
+
     var repositoriesFolders = new SubModuleDirectory
     {
       Name = "Repositories",
@@ -81,7 +90,7 @@ public static class ModuleDirectoryService
         repositoryFile
       }
     };
-    
+
     var servicesFolders = new SubModuleDirectory
     {
       Name = "Services",
@@ -91,8 +100,9 @@ public static class ModuleDirectoryService
         serviceImplFile
       }
     };
-    
-    var validatorsFile = dtoTypes.Where(it => it != "ReadDto").Select(it => new ModuleFile { Name = $"{singularName}{it}Validator.cs" }).ToList();
+
+    var validatorsFile = dtoTypes.Where(it => it != "ReadDto")
+      .Select(it => new ModuleFile { Name = $"{singularName}{it}Validator.cs" }).ToList();
     var validatorsFolders = new SubModuleDirectory
     {
       Name = "Validators",
@@ -108,12 +118,17 @@ public static class ModuleDirectoryService
       dtosFolder,
       repositoriesFolders,
       validatorsFolders
-    }.OrderBy(e => e.Name).ToList();
+    };
+
+    if (enableEntityConfiguration)
+    {
+      directories.Add(entitiesConfigurationFolder);
+    }
 
     return new ModuleDirectory
     {
       Name = pluralName,
-      SubModuleDirectories = directories
+      SubModuleDirectories = directories.OrderBy(e => e.Name).ToList()
     };
   }
 }
