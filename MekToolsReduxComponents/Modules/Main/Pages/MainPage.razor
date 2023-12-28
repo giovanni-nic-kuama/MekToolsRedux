@@ -1,6 +1,7 @@
-﻿@using MekToolsReduxCore.Modules.ProjectDirectories.Models
-@using MekToolsReduxCore.Modules.ProjectDirectories.Services
+﻿@using MekToolsReduxCore.Modules.ModulePreviews.Models
+@using MekToolsReduxCore.Modules.ModulePreviews.Services
 @using MekToolsReduxComponents.Modules.Main.Models
+@using MekToolsReduxComponents.Modules.Main.Mappings
 @inherits LayoutComponentBase
 @page "/main-page/{*pageRoute}"
 
@@ -29,7 +30,7 @@
   <div class="flex justify-center mt-10">
     <div class="w-2/3">
       <Card Title="Preview">
-        <FileTreePreview ModuleDirectory="ModuleDirectory"/>
+        <FileTreePreview ModulePreviewModel="ModulePreviewModel"/>
       </Card>
     </div>
   </div>
@@ -45,7 +46,7 @@
 
   private string DestinationPath { get; set; } = null!;
 
-  private ModuleDirectory ModuleDirectory { get; set; } = null!;
+  private ModulePreviewModel ModulePreviewModel { get; set; } = null!;
 
   private AdditionalSettingsFormModel AdditionalSettingsFormModel { get; set; } = null!;
 
@@ -61,8 +62,7 @@
       EntityPluralName = parameters[1];
       DestinationPath = parameters[2].Replace("@", "\\");
 
-      ModuleDirectory = ModuleDirectoryService
-        .GetPreview(singularName: EntitySingularName, pluralName: EntityPluralName, AdditionalSettingsFormModel.EnableEntityConfiguration);
+      GenerateModulePreview();
     }
     else
     {
@@ -76,8 +76,19 @@
   private void OnAdditionalSettingsChange(AdditionalSettingsFormModel model)
   {
     AdditionalSettingsFormModel = model;
-    ModuleDirectory = ModuleDirectoryService
-      .GetPreview(singularName: EntitySingularName, pluralName: EntityPluralName, AdditionalSettingsFormModel.EnableEntityConfiguration);
+
+    GenerateModulePreview();
+  }
+
+  private void GenerateModulePreview()
+  {
+    var dto = ModulePreviewModelMappings.Map(
+      entitySingularName: EntitySingularName,
+      entityPluralName: EntityPluralName,
+      additionalSettings: AdditionalSettingsFormModel
+    );
+
+    ModulePreviewModel = ModulePreviewService.GenerateModulePreview(dto);
   }
 
 }

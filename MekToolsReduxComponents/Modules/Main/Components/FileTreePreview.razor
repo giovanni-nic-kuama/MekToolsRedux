@@ -1,25 +1,25 @@
-﻿@using MekToolsReduxCore.Modules.ProjectDirectories.Models
-<div class="flex items-center gap-x-1">
-          <img src="icons/folder_icon.svg" height="20" width="20" alt="Folder Icon" />
-          @ModuleDirectory.Name
-        </div>
-        
-        @foreach (var subModuleDirectory in ModuleDirectory.SubModuleDirectories)
-        {
-          <div class="flex items-center gap-x-1 ml-8 italic">
-            <img src="icons/folder_icon.svg" height="20" width="20" alt="Folder Icon" />
-            @subModuleDirectory.Name
-          </div>
-          
-          @foreach (var moduleFile in subModuleDirectory.ModuleFiles)
-          {
-            <div class="flex items-center gap-x-1 ml-16">
-              <img src="icons/c_sharp_icon.svg" height="20" width="20" alt="C# File Icon" />
-              @moduleFile.Name
-            </div> 
-          }
-        }
+﻿@using MekToolsReduxCore.Modules.ModulePreviews.Models
+<div class="flex items-center gap-x-1 italic font-extrabold">
+  <img src="icons/folder_icon.svg" height="20" width="20" alt="Folder Icon"/>
+  @ModulePreviewModel.ModuleName
+</div>
+
+@foreach (var subModuleDirectory in ModulePreviewModel.Directories)
+{
+  <div class="flex items-center gap-x-1 ml-8 italic font-extrabold">
+    <img src="icons/folder_icon.svg" height="20" width="20" alt="Folder Icon"/>
+    @subModuleDirectory.Name
+  </div>
+
+  @foreach (var moduleFile in subModuleDirectory.Files)
+  {
+    <div class="flex items-center gap-x-1 ml-16">
+      <img src="icons/c_sharp_icon.svg" height="20" width="20" alt="C# File Icon"/>
+      @moduleFile.Name
+    </div>
+  }
+}
 
 @code {
-  [Parameter] public ModuleDirectory ModuleDirectory { get; set; } = null!;
+  [Parameter] public ModulePreviewModel ModulePreviewModel { get; set; } = null!;
 }
