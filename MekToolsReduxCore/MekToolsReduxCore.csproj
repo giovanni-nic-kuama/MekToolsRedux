@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Entity.txt"/>
+    <EmbeddedResource Include="Resources\Controller.txt"/>
+    <EmbeddedResource Include="Resources\GenericClass.txt"/>
+  </ItemGroup>
 </Project>

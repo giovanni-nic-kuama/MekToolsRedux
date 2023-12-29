@@ -1,0 +1,7 @@
+﻿
+---namespace-needle---
+
+public class ---entity-name-needle---
+{
+
+}

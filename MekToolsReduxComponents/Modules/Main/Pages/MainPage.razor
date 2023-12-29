@@ -1,6 +1,7 @@
 ﻿@using MekToolsReduxCore.Modules.ModulePreviews.Models
 @using MekToolsReduxCore.Modules.ModulePreviews.Services
 @using MekToolsReduxComponents.Modules.Main.Models
+@using MekToolsReduxCore.Modules.ModuleGenerators.Dtos
 @using MekToolsReduxCore.Modules.ModuleGenerators.Services
 @using MekToolsReduxComponents.Modules.Main.Mappings
 @inherits LayoutComponentBase
@@ -80,7 +81,19 @@
 
   private void GenerateModule()
   {
-    ModuleGeneratorService.GenerateModule(DestinationPath, ModulePreviewModel);
+    // TODO: move into mappings
+    var dto = new ModuleCreateDto
+    {
+      DestinationPath = DestinationPath,
+      EntitySingularName = EntitySingularName,
+      EntityPluralName = EntityPluralName,
+      EnableRepository = AdditionalSettingsFormModel.EnableRepository,
+      EnableValidators = AdditionalSettingsFormModel.EnableValidators,
+      EnableEntityConfiguration = AdditionalSettingsFormModel.EnableEntityConfiguration,
+      EnableUpsertDto = AdditionalSettingsFormModel.EnableUpsertDto,
+    };
+
+    ModuleGeneratorService.GenerateModule(dto);
   }
 
   private void OnAdditionalSettingsChange(AdditionalSettingsFormModel model)

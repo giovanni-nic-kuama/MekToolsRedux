@@ -22,6 +22,6 @@ public static class ControllerGeneratorUtils
 
   public static ModuleFilePreviewModel GenerateFilePreviewModel(string entityPluralName)
   {
-    return new ModuleFilePreviewModel { Name = $"{entityPluralName}Repository.cs" };
+    return new ModuleFilePreviewModel { Name = $"{entityPluralName}Controller.cs" };
   }
 }

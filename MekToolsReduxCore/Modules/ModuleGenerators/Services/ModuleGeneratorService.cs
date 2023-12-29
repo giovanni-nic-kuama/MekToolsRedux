@@ -1,37 +1,145 @@
-﻿using MekToolsReduxCore.Modules.ModulePreviews.Models;
+﻿using System.Text;
+using MekToolsReduxCore.Modules.ModuleGenerators.Dtos;
+using MekToolsReduxCore.Modules.ModuleGenerators.Interpolators;
+using MekToolsReduxCore.Modules.ModuleGenerators.Mappings;
+using MekToolsReduxCore.Modules.ModuleGenerators.Models;
+using MekToolsReduxCore.Modules.ModuleGenerators.Repositories;
 
 namespace MekToolsReduxCore.Modules.ModuleGenerators.Services;
 
 public static class ModuleGeneratorService
 {
-  public static void GenerateModule(string filePath, ModulePreviewModel model)
+  public static void GenerateModule(ModuleCreateDto dto)
   {
-    // Assumption: directory does not exists
+    var moduleCreateModel = ModuleMappings.Map(dto);
 
+    // Step 1) Generate Module main folder
+    var modulePath = Path.Combine(dto.DestinationPath, moduleCreateModel.ModuleName);
 
-    // Step 1) Generate Module Name folder
-    var modulePath = Path.Combine(filePath, model.ModuleName);
-    Directory.CreateDirectory(modulePath);
-
-    foreach (var moduleDirectory in model.Directories)
+    // Step 2) Check if the directory already exists. If true, delete it
+    if (Directory.Exists(modulePath))
     {
-      var directoryPath = Path.Combine(modulePath, moduleDirectory.Name);
-      CreateDirectory(directoryPath);
-
-      // Step 2) For each Folder, Create its files 
+      Directory.Delete(modulePath, recursive: true);
     }
 
-    // Step 3) Interpolate C# files
-    // First Possibility) +++timeconsuming Prepare a static class with all needed strings
-    // Second Possibility) ---timeconsuming Have a "Template" File to read. Just need to replace a needle in the haystack 
+    Directory.CreateDirectory(modulePath);
 
-    // Enhancements: Search main directory does not exists and bla blas
+    // Step 3) Create Entities Folder and Entity File
+    CreateEntitiesFolderAndGenerateTemplate(modulePath, moduleCreateModel.EntityCreateModel);
+
+    // Step 3) Create Controllers Folder and Controller file
+    CreateControllersFolderAndGenerateTemplate(modulePath, moduleCreateModel.ControllerCreateModel);
+
+    // Step 4) Create Mappings Folder and Mappings file
+    CreateGenericTemplate(
+      modulePath: modulePath,
+      folderName: "Mappings",
+      classNamespace: "com.kuama.todo",
+      className: $"{dto.EntitySingularName}Mappings",
+      fileName: $"{dto.EntitySingularName}Mappings.cs");
+
+    // Step 5) Create Repositories Folder and Repository file
+    CreateGenericTemplate(
+      modulePath: modulePath,
+      folderName: "Repositories",
+      classNamespace: "com.kuama.todo",
+      className: $"{dto.EntitySingularName}Repository",
+      fileName: $"{dto.EntitySingularName}Repository.cs");
+
+    // Step 5) Create Repositories Folder and Repository file
+    CreateGenericTemplate(
+      modulePath: modulePath,
+      folderName: "Repositories",
+      classNamespace: "com.kuama.todo",
+      className: $"{dto.EntitySingularName}Repository",
+      fileName: $"{dto.EntitySingularName}Repository.cs");
+
+    // Step 6) Create Services Folder and Service file
+    // TODO) Generate only interface file
+    CreateGenericTemplate(
+      modulePath: modulePath,
+      folderName: "Services",
+      classNamespace: "com.kuama.todo",
+      className: $"{dto.EntitySingularName}Service",
+      fileName: $"{dto.EntitySingularName}Service.cs");
+
+    CreateGenericTemplate(
+      modulePath: modulePath,
+      folderName: "Dtos",
+      classNamespace: "com.kuama.todo",
+      className: $"{dto.EntitySingularName}ReadDto",
+      fileName: $"{dto.EntitySingularName}ReadDto.cs");
+
+    CreateGenericTemplate(
+      modulePath: modulePath,
+      folderName: "Validators",
+      classNamespace: "com.kuama.todo",
+      className: $"{dto.EntitySingularName}CreateDtoValidator",
+      fileName: $"{dto.EntitySingularName}CreateDtoValidator.cs");
   }
 
-  private static void CreateDirectory(string path)
+  private static void CreateGenericTemplate(string modulePath, string folderName, string classNamespace,
+    string className, string fileName)
   {
-    var info = Directory.CreateDirectory(path);
-    var ciao = "ciao";
+    // Create Entities Directory
+    var entityDirectoryPath = Path.Combine(modulePath, folderName);
+    Directory.CreateDirectory(entityDirectoryPath);
+
+    // Read stored template to bytes
+    var genericClassTemplate = TemplateFileRepository.GetGenericClassTemplate();
+
+    var interpolatedTemplate =
+      GenericClassInterpolator.InterpolateFile(genericClassTemplate, classNamespace, className);
+
+    // Convert template to byte array
+    var bytes = Encoding.ASCII.GetBytes(interpolatedTemplate);
+    var currentFilePath = Path.Combine(entityDirectoryPath, fileName);
+
+    // Write File
+    File.WriteAllBytes(currentFilePath, bytes);
+  }
+
+  private static void CreateFileOnPath()
+  {
+  }
+
+  private static void CreateEntitiesFolderAndGenerateTemplate(string modulePath, EntityCreateModel model)
+  {
+    // Create Entities Directory
+    var entityDirectoryPath = Path.Combine(modulePath, "Entities");
+    Directory.CreateDirectory(entityDirectoryPath);
+
+    // Read stored template to bytes
+    var entityTemplate = TemplateFileRepository.GetEntityTemplate();
+
+    var interpolatedTemplate = EntityInterpolator.InterpolateFile(entityTemplate, model);
+
+    // Convert template to byte array
+    var bytes = Encoding.ASCII.GetBytes(interpolatedTemplate);
+    var currentFilePath = Path.Combine(entityDirectoryPath, model.FileName);
+
+    // Write File
+    File.WriteAllBytes(currentFilePath, bytes);
+  }
+
+  private static void CreateControllersFolderAndGenerateTemplate(string modulePath, ControllerCreateModel model)
+  {
+    // Create Entities Directory
+    var controllersDirectoryPath = Path.Combine(modulePath, "Controllers");
+    Directory.CreateDirectory(controllersDirectoryPath);
+
+    // Read stored template to bytes
+    var controllerTemplate = TemplateFileRepository.GetControllerTemplate();
+
+    // TODO: interpolate template
+    var interpolatedTemplate = ControllerInterpolator.InterpolateFile(controllerTemplate, model);
+
+    // Convert template to byte array
+    var bytes = Encoding.ASCII.GetBytes(interpolatedTemplate);
+    var currentFilePath = Path.Combine(controllersDirectoryPath, model.FileName);
+
+    // Write File
+    File.WriteAllBytes(currentFilePath, bytes);
   }
 
   public static bool ValidatePath(string path)
@@ -44,7 +152,6 @@ public static class ModuleGeneratorService
     return directoryExists && hasWritePermission;
   }
 
-  // TODO: move into core
   private static bool HasWritePermission(string filePath)
   {
     try
@@ -58,26 +165,5 @@ public static class ModuleGeneratorService
     }
 
     return true;
-  }
-
-  // TODO: working
-  private static void WriteFile()
-  {
-    string[] lines = { "First line", "Second line", "Third line" };
-
-    // Set a variable to the Documents path.
-    string docPath =
-      Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-
-    // Write the string array to a new file named "WriteLines.txt".
-    using (var outputFile = new StreamWriter(Path.Combine(docPath, "WriteLines.txt")))
-    {
-      foreach (var line in lines)
-      {
-        outputFile.WriteLine(line);
-      }
-    }
-
-    Directory.CreateDirectory(Path.Combine("C:\\Users\\Noitu\\Desktop", "MODULES"));
   }
 }

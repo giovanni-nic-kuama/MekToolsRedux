@@ -1,0 +1,20 @@
+using Microsoft.AspNetCore.Mvc;
+
+---namespace-needle---
+
+[ApiController]
+[Route("api/[controller]")]
+public class ---controller-name-needle--- : ControllerBase
+{
+  #region Fields
+
+  #endregion
+
+  #region Ctor
+
+  #endregion
+
+  #region Public Api
+
+  #endregion
+}

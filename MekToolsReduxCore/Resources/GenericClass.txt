@@ -1,0 +1,6 @@
+---namespace-needle---
+
+public class ---generic-class-name-needle---
+{
+
+}
