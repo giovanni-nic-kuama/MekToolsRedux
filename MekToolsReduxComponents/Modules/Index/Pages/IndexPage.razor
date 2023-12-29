@@ -1,4 +1,4 @@
-﻿@page "/"
+﻿@page "/index-to-be-removed"
 @using MekToolsReduxComponents.Modules.Index.Models
 @inject NavigationManager NavigationManager
 
@@ -16,6 +16,7 @@
 
 
 @code {
+
   private void Navigate(string entitySingularName, string entityPluralName, string destinationPath)
   {
     NavigationManager.NavigateTo(PageRoutes.MainPage + $"/{entitySingularName}/{entityPluralName}/{destinationPath}");
@@ -23,6 +24,7 @@
 
   private void OnValidFormSubmit(ModuleCreateModel model)
   {
-    Navigate(model.EntitySingularName, model.EntityPluralName, model.DestinationPath.Replace("\\", "@")); 
+    Navigate(model.EntitySingularName, model.EntityPluralName, model.DestinationPath.Replace("\\", "@"));
   }
+
 }
