@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using MudBlazor.Services;
 
 namespace MekToolsReduxApp
 {
@@ -15,6 +16,7 @@ namespace MekToolsReduxApp
                 });
 
             builder.Services.AddMauiBlazorWebView();
+            builder.Services.AddMudServices();
 
 #if DEBUG
     		builder.Services.AddBlazorWebViewDeveloperTools();
