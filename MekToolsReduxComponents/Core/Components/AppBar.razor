@@ -1,4 +1,32 @@
-﻿<div class="flex gap-x-5 px-5 py-3 items-center justify-center bg-white">
-  <div class="text-6xl font-extrabold">KUAMA</div>
-  <div class="text-4xl font-extrabold">Mek Tools Redux</div>
-</div>
+﻿<MudPaper Elevation="3" class="flex justify-between px-5 items-center rounded-lg">
+  <div class="text-xl font-bold">Mek Tools Redux</div>
+  <div class="flex gap-x-2 items-center">
+    @if (IsProjectLoaded)
+    {
+      <MudTooltip Text="@ProjectPath">
+        <div class="font-bold">Loaded project: <span>@ProjectName</span></div>
+      </MudTooltip>
+    }
+    else
+    {
+      <div class="font-bold">No loaded Project</div>
+    }
+
+    <MudTooltip Text="Unload project">
+      <MudIconButton
+        Icon="@Icons.Material.Filled.Logout"
+        aria-label="logout"
+        Disabled="!IsProjectLoaded"/>
+    </MudTooltip>
+  </div>
+</MudPaper>
+
+@code {
+  [Parameter] public string? ProjectName { get; set; }
+
+  [Parameter] public string? ProjectPath { get; set; }
+
+  [Parameter] public EventCallback OnUnloadProjectClick { get; set; }
+
+  private bool IsProjectLoaded => ProjectName != null && ProjectPath != null;
+}

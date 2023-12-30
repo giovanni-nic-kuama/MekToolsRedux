@@ -1,0 +1,32 @@
+﻿<MudPaper Elevation="3" class="p-5 w-96 rounded-lg flex flex-column justify-between">
+
+  <div>
+    <div class="text-xl font-extrabold mb-3">@Title</div>
+    <p class="text-lg h-28">
+      @ShortDescription
+    </p>
+  </div>
+
+
+  <div class="flex flex-row-reverse items-center gap-x-4">
+    <MudSwitch Checked="@IsEnabled" Color="Color.Dark" CheckedChanged="@((bool e) => CheckedChanged(e))"/>
+    <div class="text-lg font-extrabold">@(IsEnabled ? "Enabled" : "Disabled")</div>
+  </div>
+
+</MudPaper>
+
+@code {
+  [Parameter] public string Title { get; set; } = null!;
+
+  [Parameter] public string ShortDescription { get; set; } = null!;
+
+  [Parameter] public EventCallback<bool> OnChange { get; set; }
+
+  [Parameter] public bool IsEnabled { get; set; }
+
+  private void CheckedChanged(bool value)
+  {
+    OnChange.InvokeAsync(value);
+  }
+
+}
