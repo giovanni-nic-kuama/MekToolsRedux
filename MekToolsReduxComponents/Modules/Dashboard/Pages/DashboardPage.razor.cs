@@ -8,13 +8,6 @@ public partial class DashboardPage
 
   private ProjectInfos? ProjectInfos { get; set; }
 
-  protected override void OnInitialized()
-  {
-    InitializeProjectInfos();
-
-    base.OnInitialized();
-  }
-
   // TODO: delete
   private void InitializeProjectInfos()
   {
@@ -24,6 +17,11 @@ public partial class DashboardPage
       ProjectPath = "C:\\Lavoro\\MekToolsRedux\\MekToolsReduxCore",
       ProjectName = "MekToolsReduxCore"
     };
+  }
+
+  private void OnValidProjectPath()
+  {
+    InitializeProjectInfos();
   }
 
   private void OnProjectSettingsChange(ProjectSettings value)

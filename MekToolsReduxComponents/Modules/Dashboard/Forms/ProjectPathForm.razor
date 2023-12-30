@@ -1,0 +1,49 @@
+﻿@using System.ComponentModel.DataAnnotations
+<MudPaper Elevation="3" class="p-5 h-54 rounded-lg flex-column" Style="width: 700px">
+  <div class="text-xl font-extrabold">Enter .NET Project Path</div>
+
+  <EditForm
+    Model="@ProjectPathFormModel"
+    OnValidSubmit="OnValidSubmit"
+    OnInvalidSubmit="OnFormInValid"
+    FormName="ProjectPathFormModel">
+    <div class="py-3">
+      <DataAnnotationsValidator/>
+
+      <div style="height: 79px">
+        <MudTextField
+          T="string"
+          Label="Destination Path"
+          @bind-Value="@ProjectPathFormModel.ProjectPath"
+          For="@(() => ProjectPathFormModel.ProjectPath)"
+          AdornmentColor="@Color.Dark"
+          Variant="Variant.Outlined">
+        </MudTextField>
+      </div>
+
+
+      <div class="flex flex-row-reverse mt-3">
+        <button type="submit">
+          <MudButton Variant="Variant.Filled" Color="Color.Dark">Load Project</MudButton>
+        </button>
+      </div>
+    </div>
+  </EditForm>
+</MudPaper>
+
+@code {
+
+  [Parameter] public EventCallback<ProjectPathFormModel> OnValidProjectPath { get; set; }
+
+  private ProjectPathFormModel ProjectPathFormModel { get; set; } = new();
+
+  private void OnValidSubmit()
+  {
+    OnValidProjectPath.InvokeAsync(ProjectPathFormModel);
+  }
+
+  private void OnFormInValid()
+  {
+  }
+
+}
