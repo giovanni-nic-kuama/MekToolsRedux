@@ -1,8 +1,11 @@
 ﻿@page "/"
 
-<h3>DashboardPage</h3>
-<MudAvatar Color="Color.Primary">M</MudAvatar>
+<div class="p-5">
+  <AppBar ProjectName="MekToolsRedux" ProjectPath="C:\Lavoro\MekToolsRedux" OnUnloadProjectClick="() => { }"/>
 
-@code {
+  <div class="my-5">
+    <div class="text-xl font-extrabold mb-3">Generation settings</div>
+    <ProjectSettingsCardsRow ProjectSettings="@ProjectSettings" OnSettingsChange="@OnProjectSettingsChange"/>
+  </div>
 
-}
+</div>

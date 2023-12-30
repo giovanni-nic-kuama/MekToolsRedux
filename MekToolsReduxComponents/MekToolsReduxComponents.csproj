@@ -20,4 +20,10 @@
     <ProjectReference Include="..\MekToolsReduxCore\MekToolsReduxCore.csproj" />
   </ItemGroup>
 
+    <ItemGroup>
+        <UpToDateCheckInput Remove="Modules\Main\Components\AdditionalSettingsForm.razor"/>
+        <UpToDateCheckInput Remove="Modules\Main\Components\CurrentModuleDataCard.razor"/>
+        <UpToDateCheckInput Remove="Modules\Main\Components\FileTreePreview.razor"/>
+    </ItemGroup>
+
 </Project>

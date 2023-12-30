@@ -1,0 +1,55 @@
+﻿@using MekToolsReduxComponents.Modules.Dashboard.Models
+<div class="flex flex-wrap justify-between gap-4">
+  <DtosSettingsCard
+    IsEnabled="@ProjectSettings.IsUpsertDtoEnabled"
+    OnChange="@OnDtosCheckChange"/>
+
+  <GenericSettingsCard
+    Title="Repositories"
+    ShortDescription="Create static repository Class to add reusable DbSet extension methods."
+    IsEnabled="@ProjectSettings.IsRepositoryEnabled"
+    OnChange="@OnRepositoryCheckChange"/>
+
+  <GenericSettingsCard
+    Title="Validators"
+    ShortDescription="Create Validators Classes using FluentValidation package."
+    IsEnabled="@ProjectSettings.AreValidatorsEnabled"
+    OnChange="@OnValidatorsCheckChange"/>
+
+  <GenericSettingsCard
+    Title="Entity Configuration"
+    ShortDescription="Create entity configuration"
+    IsEnabled="@ProjectSettings.IsEntityConfigurationEnabled"
+    OnChange="@OnEntityConfigurationCheckChange"/>
+</div>
+
+@code {
+  [Parameter] public ProjectSettings ProjectSettings { get; set; } = null!;
+
+  [Parameter] public EventCallback<ProjectSettings> OnSettingsChange { get; set; }
+
+  private void OnDtosCheckChange(bool value)
+  {
+    var newValue = ProjectSettings with { IsUpsertDtoEnabled = value };
+    OnSettingsChange.InvokeAsync(newValue);
+  }
+
+  private void OnRepositoryCheckChange(bool value)
+  {
+    var newValue = ProjectSettings with { IsRepositoryEnabled = value };
+    OnSettingsChange.InvokeAsync(newValue);
+  }
+
+  private void OnValidatorsCheckChange(bool value)
+  {
+    var newValue = ProjectSettings with { AreValidatorsEnabled = value };
+    OnSettingsChange.InvokeAsync(newValue);
+  }
+
+  private void OnEntityConfigurationCheckChange(bool value)
+  {
+    var newValue = ProjectSettings with { IsEntityConfigurationEnabled = value };
+    OnSettingsChange.InvokeAsync(newValue);
+  }
+
+}

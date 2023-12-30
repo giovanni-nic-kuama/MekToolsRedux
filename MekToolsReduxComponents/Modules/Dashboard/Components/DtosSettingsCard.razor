@@ -1,0 +1,47 @@
+﻿<MudPaper Elevation="3" class="p-5 w-96 rounded-lg flex-column">
+  <div class="text-xl font-extrabold mb-3">Dtos Settings</div>
+
+  @if (IsEnabled)
+  {
+    <p class="text-lg h-28">
+      Generate two Dtos. <code class="font-bold">ReadDto</code> for resource reading
+      and <code class="font-bold">UpsertDto</code> for resource creation and update.
+    </p>
+  }
+  else
+  {
+    <p class="text-lg h-28">
+      Generate three Dtos. <code class="font-bold">ReadDto</code> for resource reading,
+      <code class="font-bold">CreateDto</code> for resource creation and
+      <code class="font-bold">UpdateDto</code> for resource update.
+    </p>
+  }
+
+  <div class="flex flex-row-reverse mt-5">
+    <MudButtonGroup Color="Color.Dark" Class="" Variant="Variant.Filled">
+      <MudButton>@(IsEnabled ? "Upsert Dto" : "Create/Update Dto")</MudButton>
+      <MudMenu Icon="@Icons.Material.Filled.ArrowDropDown" Style="align-self: auto;">
+        <MudMenuItem OnClick="@SetUpsertDtoDisabled">Create/Update Dto</MudMenuItem>
+        <MudMenuItem OnClick="@SetUpsertDtoEnabled">Upsert Dto</MudMenuItem>
+      </MudMenu>
+    </MudButtonGroup>
+  </div>
+
+</MudPaper>
+
+@code {
+  [Parameter] public EventCallback<bool> OnChange { get; set; }
+
+  [Parameter] public bool IsEnabled { get; set; }
+
+  private void SetUpsertDtoEnabled()
+  {
+    OnChange.InvokeAsync(true);
+  }
+
+  private void SetUpsertDtoDisabled()
+  {
+    OnChange.InvokeAsync(false);
+  }
+
+}
