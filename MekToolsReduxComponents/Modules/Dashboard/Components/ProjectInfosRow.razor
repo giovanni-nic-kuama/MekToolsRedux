@@ -1,0 +1,39 @@
+﻿@using MekToolsReduxComponents.Modules.Dashboard.Models
+<div class="flex flex-wrap gap-8 28">
+  <MudPaper Elevation="3" class="p-5 w-96 h-64 rounded-lg flex-column">
+    <div class="text-xl font-extrabold mb-3">Loaded Project</div>
+
+    <div class="flex flex-column text-lg truncate mt-10">
+      <MudTooltip id="ppy" Text="@ProjectInfos.ProjectPath">
+        <p id="ppy12" class="font-extrabold">Path: <span class="font-normal">@ProjectInfos.ProjectPath</span></p>
+      </MudTooltip>
+
+      <MudTooltip id="@ProjectInfos.ModulesPath" Text="@ProjectInfos.ModulesPath">
+        <p class="font-extrabold">Modules Path: <span class="font-normal">@ProjectInfos.ModulesPath</span></p>
+      </MudTooltip>
+
+      <p class="font-extrabold">Project Name: <span class="font-normal">@ProjectInfos.ProjectName</span></p>
+      <p class="font-extrabold">CsProj: <span class="font-normal">@ProjectInfos.CsProjName</span></p>
+    </div>
+  </MudPaper>
+
+  <MudPaper Elevation="3" class="p-5 w-96 h-64 rounded-lg">
+    <div class="text-xl font-extrabold mb-3">Modules</div>
+    <div class="flex flex-column pt-10 items-center h-full">
+      <MudAvatar Class="flex" Size="Size.Large" Style="@(ProjectModulesFound ? $"background:{Colors.Green.Darken1};" : $"background:{Colors.Red.Darken1};")">
+        <MudIcon Color="Color.Dark" Icon="@(ProjectModulesFound ? Icons.Material.Filled.Check : Icons.Material.Sharp.Close)"/>
+      </MudAvatar>
+      <div class="text-center text-lg font-extrabold mt-3">
+        @(ProjectModulesFound ? "Project modules found" : "Project modules not found")
+      </div>
+    </div>
+
+  </MudPaper>
+</div>
+
+@code {
+  [Parameter] public ProjectInfos ProjectInfos { get; set; } = null!;
+
+  private bool ProjectModulesFound => ProjectInfos.ModulesPath != null;
+
+}
