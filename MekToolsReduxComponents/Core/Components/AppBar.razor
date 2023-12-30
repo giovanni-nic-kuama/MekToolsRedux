@@ -16,6 +16,7 @@
       <MudIconButton
         Icon="@Icons.Material.Filled.Logout"
         aria-label="logout"
+        OnClick="@(() => OnUnloadProjectClick.InvokeAsync())"
         Disabled="!IsProjectLoaded"/>
     </MudTooltip>
   </div>

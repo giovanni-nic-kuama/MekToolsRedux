@@ -1,11 +1,21 @@
 ﻿@page "/"
 
 <div class="p-5">
-  <AppBar ProjectName="MekToolsRedux" ProjectPath="C:\Lavoro\MekToolsRedux" OnUnloadProjectClick="() => { }"/>
+  <AppBar ProjectName="MekToolsRedux" ProjectPath="@ProjectInfos?.ProjectPath" OnUnloadProjectClick="@UnloadProject"/>
 
-  <div class="my-5">
-    <div class="text-xl font-extrabold mb-3">Generation settings</div>
-    <ProjectSettingsCardsRow ProjectSettings="@ProjectSettings" OnSettingsChange="@OnProjectSettingsChange"/>
-  </div>
+  @if (ProjectInfos != null)
+  {
+    <div class="my-5">
+      <div class="text-xl font-extrabold mb-3">Project Infos</div>
+      <ProjectInfosRow ProjectInfos="@ProjectInfos"/>
+    </div>
 
+    if (ProjectInfos?.ProjectPath != null)
+    {
+      <div class="my-5">
+        <div class="text-xl font-extrabold mb-3">Generation settings</div>
+        <ProjectSettingsCardsRow ProjectSettings="@ProjectSettings" OnSettingsChange="@OnProjectSettingsChange"/>
+      </div>
+    }
+  }
 </div>
