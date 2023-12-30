@@ -1,4 +1,5 @@
 ﻿@page "/"
+@using MekToolsReduxComponents.Modules.Dashboard.Forms
 
 <div class="p-5">
   <AppBar ProjectName="MekToolsRedux" ProjectPath="@ProjectInfos?.ProjectPath" OnUnloadProjectClick="@UnloadProject"/>
@@ -17,5 +18,11 @@
         <ProjectSettingsCardsRow ProjectSettings="@ProjectSettings" OnSettingsChange="@OnProjectSettingsChange"/>
       </div>
     }
+  }
+  else
+  {
+    <div class="my-5">
+      <ProjectPathForm OnValidProjectPath="@OnValidProjectPath" />
+    </div>
   }
 </div>
