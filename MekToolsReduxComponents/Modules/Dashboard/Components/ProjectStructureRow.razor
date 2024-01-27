@@ -1,0 +1,29 @@
+﻿@using MekToolsReduxComponents.Modules.Dashboard.Models
+
+<div class="grid grid-cols-2 gap-x-8">
+  <MudPaper Elevation="3" class="p-5 rounded-lg flex-column">
+    <div class="flex items-center">
+      <MudIcon Icon="@Icons.Material.Filled.Folder" />
+      <div class="text-lg font-bold ml-1">Modules</div>
+    </div>
+    
+    <div class="ml-4 flex flex-column">
+      @foreach (var projectFolder in ProjectFolders)
+      {
+        <div class="flex items-center">
+          <MudIcon Icon="@Icons.Material.Filled.Folder" />
+          <div class=@(projectFolder.IsGenerated ? "text-lg ml-1 my-1 text-green-500" : "text-lg ml-1 my-1")>@projectFolder.Name</div>
+        </div>
+      }
+    </div>
+    
+  </MudPaper>
+  
+  <MudPaper Elevation="3" class="p-5 rounded-lg flex-column">
+    Container 2
+  </MudPaper>
+</div>
+
+@code {
+ [Parameter] public List<ProjectFolder> ProjectFolders { get; set; } = null!;
+}

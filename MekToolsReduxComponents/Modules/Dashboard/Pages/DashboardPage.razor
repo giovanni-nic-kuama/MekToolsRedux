@@ -1,5 +1,4 @@
 ﻿@page "/"
-@using MekToolsReduxComponents.Modules.Dashboard.Forms
 
 <div class="p-5">
   <AppBar ProjectName="MekToolsRedux" ProjectPath="@ProjectInfos?.ProjectPath" OnUnloadProjectClick="@UnloadProject"/>
@@ -11,11 +10,16 @@
       <ProjectInfosRow ProjectInfos="@ProjectInfos"/>
     </div>
 
-    if (ProjectInfos?.ProjectPath != null)
+    if (ProjectInfos?.ModulesPath != null)
     {
       <div class="my-5">
         <div class="text-xl font-extrabold mb-3">Generation settings</div>
         <ProjectSettingsCardsRow ProjectSettings="@ProjectSettings" OnSettingsChange="@OnProjectSettingsChange"/>
+      </div>
+      
+      <div class="my-5">
+        <div class="text-xl font-extrabold mb-3">Project structure & generated structure</div>
+        <ProjectStructureRow ProjectFolders="ProjectFolders" />
       </div>
     }
   }
