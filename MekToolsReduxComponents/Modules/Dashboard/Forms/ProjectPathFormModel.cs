@@ -7,5 +7,5 @@ namespace MekToolsReduxComponents.Modules.Dashboard.Forms;
 public class ProjectPathFormModel
 {
   [Required(ErrorMessage = "Destination path is required")]
-  public string ProjectPath { get; set; } = null!;
+  public string ProjectPath { get; set; } = "C:\\Lavoro\\MekToolsRedux";
 }

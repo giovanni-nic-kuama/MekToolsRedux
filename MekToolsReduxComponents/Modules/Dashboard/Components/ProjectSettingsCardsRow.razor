@@ -1,5 +1,7 @@
 ﻿@using MekToolsReduxComponents.Modules.Dashboard.Models
 <div class="flex flex-wrap gap-8">
+  <EntityNameForm OnValidProjectPath="() => { }" />
+  
   <DtosSettingsCard
     IsEnabled="@ProjectSettings.IsUpsertDtoEnabled"
     OnChange="@OnDtosCheckChange"/>

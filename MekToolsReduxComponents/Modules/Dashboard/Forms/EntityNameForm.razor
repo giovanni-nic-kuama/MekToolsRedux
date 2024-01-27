@@ -1,0 +1,58 @@
+﻿<MudPaper Elevation="3" class="py-3 px-5 w-96 h-64 rounded-lg flex flex-column justify-between">
+
+  <EditForm
+      Model="@EntityNameFormModel"
+      OnValidSubmit="OnValidSubmit"
+      OnInvalidSubmit="OnFormInValid"
+      FormName="ProjectPathFormModel">
+      <div class="py-3">
+        <DataAnnotationsValidator/>
+  
+        <div style="height: 79px">
+          <MudTextField
+            T="string"
+            Label="Entity Singular Name"
+            @bind-Value="@EntityNameFormModel.EntitySingularName"
+            For="@(() => EntityNameFormModel.EntitySingularName)"
+            AdornmentColor="@Color.Dark"
+            Variant="Variant.Outlined">
+          </MudTextField>
+        </div>
+        
+        <div style="height: 79px">
+          <MudTextField
+            T="string"
+            Label="Entity Plural Name"
+            @bind-Value="@EntityNameFormModel.EntityPluralName"
+            For="@(() => EntityNameFormModel.EntityPluralName)"
+            AdornmentColor="@Color.Dark"
+            Variant="Variant.Outlined">
+          </MudTextField>
+        </div>
+  
+        <div class="flex flex-row-reverse mt-1">
+          <button type="submit">
+            <MudButton Variant="Variant.Filled" Color="Color.Dark">Save</MudButton>
+          </button>
+        </div>
+      </div>
+    </EditForm>
+
+</MudPaper>
+
+@code {
+  
+  [Parameter] public EventCallback<EntityNameFormModel> OnValidProjectPath { get; set; }
+
+  private EntityNameFormModel EntityNameFormModel { get; set; } = new();
+
+  private void OnValidSubmit()
+  {
+    OnValidProjectPath.InvokeAsync(EntityNameFormModel);
+  }
+
+  private void OnFormInValid()
+  {
+  }
+
+}

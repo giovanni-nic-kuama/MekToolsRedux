@@ -8,6 +8,8 @@ public partial class DashboardPage
 
   private ProjectInfos? ProjectInfos { get; set; }
 
+  private List<ProjectFolder> ProjectFolders { get; set; } = new();
+
   // TODO: delete
   private void InitializeProjectInfos()
   {
@@ -19,9 +21,48 @@ public partial class DashboardPage
     };
   }
 
+  // TODO: delete
+  private void InitializeProjectFolders()
+  {
+    ProjectFolders = new List<ProjectFolder>()
+    {
+      new()
+      {
+        Name = "Accounts",
+        IsGenerated = false
+      },
+      new()
+      {
+        Name = "BioEthicalIssue",
+        IsGenerated = false
+      },
+      new()
+      {
+        Name = "BioMedicalIssues",
+        IsGenerated = false
+      },
+      new()
+      {
+        Name = "Patients",
+        IsGenerated = false
+      },
+      new()
+      {
+        Name = "Users",
+        IsGenerated = false
+      },
+      new()
+      {
+        Name = "Zebras",
+        IsGenerated = true
+      }
+    }.OrderBy(e => e.Name).ToList();
+  }
+
   private void OnValidProjectPath()
   {
     InitializeProjectInfos();
+    InitializeProjectFolders();
   }
 
   private void OnProjectSettingsChange(ProjectSettings value)
