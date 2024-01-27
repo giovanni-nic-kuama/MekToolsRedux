@@ -1,0 +1,24 @@
+﻿on:
+  workflow_dispatch:
+    inputs:
+      targetPlatform:
+        description: 'Target Platform'
+        required: true
+        default: 'windows'
+        type: choice
+        options:
+          - windows
+        
+jobs:
+  log-the-inputs:
+    runs-on: windows-latest
+    steps:
+      - run: |
+          echo "Platform chosen: PLATFORM"
+        env:
+          PLATFORM: ${{ inputs.targetPlatform }}
+      - uses: actions/checkout@v3
+      - uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '7.0.x'
+      - run: dotnet publish --configuration Release --self-contained --framework "net7.0-windows10.0.19041.0"
