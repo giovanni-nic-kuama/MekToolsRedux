@@ -42,13 +42,13 @@
 
 @code {
   
-  [Parameter] public EventCallback<EntityNameFormModel> OnValidProjectPath { get; set; }
+  [Parameter] public EventCallback<EntityNameFormModel> OnValidEntityName { get; set; }
 
   private EntityNameFormModel EntityNameFormModel { get; set; } = new();
 
   private void OnValidSubmit()
   {
-    OnValidProjectPath.InvokeAsync(EntityNameFormModel);
+    OnValidEntityName.InvokeAsync(EntityNameFormModel);
   }
 
   private void OnFormInValid()

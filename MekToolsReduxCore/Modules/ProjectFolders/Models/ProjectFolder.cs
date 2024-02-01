@@ -1,4 +1,4 @@
-﻿namespace MekToolsReduxComponents.Modules.Dashboard.Models;
+﻿namespace MekToolsReduxCore.Modules.ProjectFolders.Models;
 
 public class ProjectFolder
 {

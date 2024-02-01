@@ -1,19 +1,21 @@
 ﻿@using MekToolsReduxComponents.Modules.Dashboard.Models
+@using MekToolsReduxCore.Modules.ProjectInfos.Models
+
 <div class="flex flex-wrap gap-8 28">
   <MudPaper Elevation="3" class="p-5 w-96 h-64 rounded-lg flex-column">
     <div class="text-xl font-extrabold mb-3">Loaded Project</div>
 
     <div class="flex flex-column text-lg truncate mt-10">
-      <MudTooltip id="ppy" Text="@ProjectInfos.ProjectPath">
-        <p id="ppy12" class="font-extrabold">Path: <span class="font-normal">@ProjectInfos.ProjectPath</span></p>
+      <MudTooltip id="ppy" Text="@ProjectInfo.ProjectPath">
+        <p id="ppy12" class="font-extrabold">Path: <span class="font-normal">@ProjectInfo.ProjectPath</span></p>
       </MudTooltip>
 
-      <MudTooltip id="@ProjectInfos.ModulesPath" Text="@ProjectInfos.ModulesPath">
-        <p class="font-extrabold">Modules Path: <span class="font-normal">@ProjectInfos.ModulesPath</span></p>
+      <MudTooltip id="@ProjectInfo.ModulesPath" Text="@ProjectInfo.ModulesPath">
+        <p class="font-extrabold">Modules Path: <span class="font-normal">@ProjectInfo.ModulesPath</span></p>
       </MudTooltip>
 
-      <p class="font-extrabold">Project Name: <span class="font-normal">@ProjectInfos.ProjectName</span></p>
-      <p class="font-extrabold">CsProj: <span class="font-normal">@ProjectInfos.CsProjName</span></p>
+      <p class="font-extrabold">Project Name: <span class="font-normal">@(ProjectInfo.ProjectName)</span></p>
+      <p class="font-extrabold">CsProj: <span class="font-normal">@(ProjectInfo.ProjectName != null ? ProjectInfo.CsProjName : "")</span></p>
     </div>
   </MudPaper>
 
@@ -32,8 +34,8 @@
 </div>
 
 @code {
-  [Parameter] public ProjectInfos ProjectInfos { get; set; } = null!;
+  [Parameter] public ProjectInfo ProjectInfo { get; set; } = null!;
 
-  private bool ProjectModulesFound => ProjectInfos.ModulesPath != null;
+  private bool ProjectModulesFound => ProjectInfo.ModulesPath != null;
 
 }

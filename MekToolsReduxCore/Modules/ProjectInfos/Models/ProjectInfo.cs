@@ -1,12 +1,12 @@
-﻿namespace MekToolsReduxComponents.Modules.Dashboard.Models;
+﻿namespace MekToolsReduxCore.Modules.ProjectInfos.Models;
 
-public record ProjectInfos
+public record ProjectInfo
 {
   public string ProjectPath { get; set; } = null!;
 
   public string? ModulesPath { get; set; }
 
-  public string ProjectName { get; set; } = null!;
+  public string? ProjectName { get; set; } = null!;
 
   public string CsProjName => $"{ProjectName}.csproj";
 }

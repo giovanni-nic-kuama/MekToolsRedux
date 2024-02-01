@@ -1,4 +1,6 @@
-﻿namespace MekToolsReduxComponents.Modules.Dashboard.Models;
+﻿using MekToolsReduxComponents.Modules.Dashboard.Forms;
+
+namespace MekToolsReduxComponents.Modules.Dashboard.Models;
 
 public record ProjectSettings
 {
@@ -9,4 +11,6 @@ public record ProjectSettings
   public bool AreValidatorsEnabled { get; set; }
 
   public bool IsEntityConfigurationEnabled { get; set; }
+
+  public EntityNameFormModel EntityNameFormModel { get; set; } = new();
 }

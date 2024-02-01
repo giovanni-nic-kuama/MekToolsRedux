@@ -1,6 +1,6 @@
 ﻿@using MekToolsReduxComponents.Modules.Dashboard.Models
 <div class="flex flex-wrap gap-8">
-  <EntityNameForm OnValidProjectPath="() => { }" />
+  <EntityNameForm OnValidEntityName="@OnValidEntityNameSubmit" />
   
   <DtosSettingsCard
     IsEnabled="@ProjectSettings.IsUpsertDtoEnabled"
@@ -54,4 +54,9 @@
     OnSettingsChange.InvokeAsync(newValue);
   }
 
+  private void OnValidEntityNameSubmit(EntityNameFormModel entityNameFormModel)
+  {
+    var newValue = ProjectSettings with { EntityNameFormModel = entityNameFormModel };
+    OnSettingsChange.InvokeAsync(newValue);
+  }
 }

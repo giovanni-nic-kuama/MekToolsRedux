@@ -7,7 +7,7 @@
   {
     <div class="my-5">
       <div class="text-xl font-extrabold mb-3">Project Infos</div>
-      <ProjectInfosRow ProjectInfos="@ProjectInfos"/>
+      <ProjectInfosRow ProjectInfo="@ProjectInfos"/>
     </div>
 
     if (ProjectInfos?.ModulesPath != null)
@@ -19,7 +19,7 @@
       
       <div class="my-5">
         <div class="text-xl font-extrabold mb-3">Project structure & generated structure</div>
-        <ProjectStructureRow ProjectFolders="ProjectFolders" />
+        <ProjectStructureRow ProjectFolders="@ProjectFolders" />
       </div>
     }
   }
