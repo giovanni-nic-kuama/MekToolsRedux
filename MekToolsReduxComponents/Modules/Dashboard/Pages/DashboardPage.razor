@@ -19,7 +19,11 @@
       
       <div class="my-5">
         <div class="text-xl font-extrabold mb-3">Project structure & generated structure</div>
-        <ProjectStructureRow ProjectFolders="@ProjectFolders" />
+        <ProjectStructureRow ProjectFolders="@ProjectFolders" ModulePreviewModel="@ModulePreviewModel" />
+      </div>
+      
+      <div class="my-5">
+        <BottomBar OnClickGenerateModule="@OnClickGenerateModule" />
       </div>
     }
   }

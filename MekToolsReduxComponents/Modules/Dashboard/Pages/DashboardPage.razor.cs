@@ -1,5 +1,9 @@
 ﻿using MekToolsReduxComponents.Modules.Dashboard.Forms;
+using MekToolsReduxComponents.Modules.Dashboard.Mappings;
 using MekToolsReduxComponents.Modules.Dashboard.Models;
+using MekToolsReduxComponents.Modules.Dashboard.ViewUtils;
+using MekToolsReduxCore.Modules.ModulePreviews.Models;
+using MekToolsReduxCore.Modules.ModulePreviews.Services;
 using MekToolsReduxCore.Modules.ProjectFolders.Models;
 using MekToolsReduxCore.Modules.ProjectInfos.Models;
 using MekToolsReduxCore.Modules.ProjectInfos.Services;
@@ -13,6 +17,8 @@ public partial class DashboardPage
   private ProjectInfo? ProjectInfos { get; set; }
 
   private List<ProjectFolder> ProjectFolders { get; set; } = new();
+  
+  private ModulePreviewModel? ModulePreviewModel { get; set; }
   
   private void OnValidProjectPath(ProjectPathFormModel model)
   {
@@ -29,10 +35,26 @@ public partial class DashboardPage
     }
   }
 
-  private void OnProjectSettingsChange(ProjectSettings value)
+  private void OnProjectSettingsChange(ProjectSettings projectSettings)
   {
-    Console.WriteLine(value);
-    ProjectSettings = value;
+    ModulePreviewModel = ModulePreviewService
+      .GenerateModulePreview(dto: ProjectMappings.MapToDto(projectSettings));
+
+    ProjectFolders = DashboardPageViewUtils
+      .UpdateProjectFolderListWithGeneratedModule(ProjectFolders, ModulePreviewModel.ModuleName);
+    
+    ProjectSettings = projectSettings;
+  }
+
+  private void OnClickGenerateModule()
+  {
+    if (ProjectInfos?.ModulesPath != null)
+    {
+      var moduleCreateDto = ProjectMappings
+        .MapToModuleCreateDto(ProjectSettings, ProjectInfos.ModulesPath);
+      
+      
+    }
   }
 
   private void UnloadProject()

@@ -6,8 +6,8 @@ namespace MekToolsReduxComponents.Modules.Dashboard.Forms;
 public class EntityNameFormModel
 {
   [Required(ErrorMessage = "Entity singular name is required")]
-  public string EntitySingularName { get; set; } = "";
+  public string EntitySingularName { get; set; } = "Temperature";
   
   [Required(ErrorMessage = "Entity plural name is required")]
-  public string EntityPluralName { get; set; } = "";
+  public string EntityPluralName { get; set; } = "Temperatures";
 }

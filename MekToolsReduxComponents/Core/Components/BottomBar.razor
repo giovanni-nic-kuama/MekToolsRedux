@@ -1,0 +1,17 @@
+﻿<MudPaper Elevation="3" class="flex flex-row-reverse rounded-lg p-5">
+  <MudButton
+    Variant="Variant.Filled"
+    Color="Color.Dark"
+    OnClick="@OnClick">
+      Generate Module
+  </MudButton>
+</MudPaper>
+
+@code {
+  [Parameter] public EventCallback OnClickGenerateModule { get; set; }
+
+  void OnClick()
+  {
+    OnClickGenerateModule.InvokeAsync();
+  }
+}

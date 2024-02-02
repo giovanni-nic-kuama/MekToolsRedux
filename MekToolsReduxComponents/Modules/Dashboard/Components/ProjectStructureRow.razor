@@ -1,4 +1,5 @@
 ﻿@using MekToolsReduxComponents.Modules.Dashboard.Models
+@using MekToolsReduxCore.Modules.ModulePreviews.Models
 @using MekToolsReduxCore.Modules.ProjectFolders.Models
 
 <div class="grid grid-cols-2 gap-x-8">
@@ -20,11 +21,40 @@
     
   </MudPaper>
   
-  <MudPaper Elevation="3" class="p-5 rounded-lg flex-column">
-    Container 2
-  </MudPaper>
+  @if (ModulePreviewModel != null)
+  {
+    <MudPaper Elevation="3" class="p-5 rounded-lg flex-column">
+      <div class="flex items-center">
+            <MudIcon Icon="@Icons.Material.Filled.Folder" />
+            <div class="text-lg font-bold ml-1">@ModulePreviewModel.ModuleName</div>
+          </div>
+          
+          <div class="ml-4 flex flex-column">
+            @foreach (var generatedDirectory in ModulePreviewModel.Directories)
+            {
+              <div class="flex items-center">
+                <MudIcon Icon="@Icons.Material.Filled.Folder" />
+                <div class="text-lg ml-1 my-1 text-green-500">@generatedDirectory.Name</div>
+              </div>
+              
+              <div class="ml-4 flex flex-column">
+                @foreach (var file in generatedDirectory.Files)
+                {
+                  <div class="flex items-center">
+                    <img src="icons/c_sharp_icon.svg" width="24" height="24" alt=""/>
+                    <div class="text-lg ml-1 my-1 text-green-500">@file.Name</div>
+                  </div>
+                }
+              </div>
+            }
+          </div>
+    </MudPaper>  
+  }
+  
 </div>
 
 @code {
  [Parameter] public List<ProjectFolder> ProjectFolders { get; set; } = null!;
+ 
+ [Parameter] public ModulePreviewModel? ModulePreviewModel { get; set; }
 }
