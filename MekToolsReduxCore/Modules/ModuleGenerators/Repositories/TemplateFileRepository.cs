@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using System.Text;
 using MekToolsReduxCore.Modules.ModuleGenerators.Exceptions;
 
 namespace MekToolsReduxCore.Modules.ModuleGenerators.Repositories;
@@ -7,64 +8,16 @@ public static class TemplateFileRepository
 {
   private const string ProjectNamespace = "MekToolsReduxCore.Resources";
 
-  private const string ControllerFileName = "Controller.txt";
-  private const string DtoFileName = "Dto.txt";
-  private const string EntityFileName = "Entity.txt";
-  private const string EntityConfigurationFileName = "EntityConfiguration.txt";
-  private const string MappingsFileName = "Mappings.txt";
-  private const string RepositoryFileName = "Repository.txt";
-  private const string ServiceInterfaceFileName = "IService.txt";
-  private const string ServiceFileName = "Service.txt";
-  private const string GenericClassFileName = "GenericClass.txt";
-
-  public static string GetControllerTemplate()
+  public static void WriteTemplate(string interpolatedTemplate, string path, string fileName)
   {
-    return GetTemplateFileFromAssembly(ControllerFileName);
+    var bytes = Encoding.ASCII.GetBytes(interpolatedTemplate);
+    var currentFilePath = Path.Combine(path, fileName);
+
+    // Write File
+    File.WriteAllBytes(currentFilePath, bytes);
   }
 
-  public static string GetDtoTemplate()
-  {
-    return GetTemplateFileFromAssembly(DtoFileName);
-  }
-
-  public static string GetEntityTemplate()
-  {
-    return GetTemplateFileFromAssembly(EntityFileName);
-  }
-
-  public static string GetEntityConfigurationTemplate()
-  {
-    return GetTemplateFileFromAssembly(EntityConfigurationFileName);
-  }
-
-  public static string GetMappingsTemplate()
-  {
-    return GetTemplateFileFromAssembly(MappingsFileName);
-  }
-
-  public static string GetRepositoryTemplate()
-  {
-    return GetTemplateFileFromAssembly(RepositoryFileName);
-  }
-
-  public static string GetServiceInterfaceTemplate()
-  {
-    return GetTemplateFileFromAssembly(ServiceInterfaceFileName);
-  }
-
-  public static string GetServiceTemplate()
-  {
-    return GetTemplateFileFromAssembly(ServiceFileName);
-  }
-
-  public static string GetGenericClassTemplate()
-  {
-    return GetTemplateFileFromAssembly(GenericClassFileName);
-  }
-
-  // TODO: validators
-
-  private static string GetTemplateFileFromAssembly(string fileName)
+  public static string GetTemplateFileFromAssembly(string fileName)
   {
     var assembly = Assembly.GetExecutingAssembly();
     var resourceName = ComposeFileNameFromAssembly(fileName);

@@ -8,6 +8,8 @@ public class ModuleCreateDto
 
   public string ModulesPath { get; init; } = null!;
 
+  public string ProjectName { get; set; } = null!;
+
   public bool EnableValidators { get; init; }
 
   public bool EnableEntityConfiguration { get; init; }

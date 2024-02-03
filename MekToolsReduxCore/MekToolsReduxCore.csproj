@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <EmbeddedResource Include="Resources\Entity.txt"/>
+    <EmbeddedResource Include="Resources\EntityConfiguration.txt"/>
     <EmbeddedResource Include="Resources\Controller.txt"/>
     <EmbeddedResource Include="Resources\GenericClass.txt"/>
   </ItemGroup>

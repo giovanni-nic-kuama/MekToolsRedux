@@ -1,0 +1,16 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using ---entity-namespace-needle---;
+
+namespace ---entities-configuration-namespace-needle---;
+
+public class ---entity-name-needle---EntityConfiguration : IEntityTypeConfiguration<---entity-name-needle--->
+{
+  public void Configure(EntityTypeBuilder<---entity-name-needle---> builder)
+  {
+    builder.HasData(new List<---entity-name-needle--->
+    {
+      
+    });
+  }
+}

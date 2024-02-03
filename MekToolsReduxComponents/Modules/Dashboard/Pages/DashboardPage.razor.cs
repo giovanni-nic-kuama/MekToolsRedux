@@ -49,13 +49,12 @@ public partial class DashboardPage
 
   private void OnClickGenerateModule()
   {
-    if (ProjectInfos?.ModulesPath != null)
-    {
-      var moduleCreateDto = ProjectMappings
-        .MapToModuleCreateDto(ProjectSettings, ProjectInfos.ModulesPath);
+    if (ProjectInfos is not { ModulesPath: not null, ProjectName: not null }) return;
+    
+    var moduleCreateDto = ProjectMappings
+      .MapToModuleCreateDto(ProjectSettings, ProjectInfos.ModulesPath, ProjectInfos!.ProjectName!);
       
-      ModuleGeneratorService.GenerateModule(moduleCreateDto);
-    }
+    ModuleGeneratorService.GenerateModule(moduleCreateDto);
   }
 
   private void UnloadProject()

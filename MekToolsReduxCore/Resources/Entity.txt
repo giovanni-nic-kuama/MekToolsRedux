@@ -1,6 +1,4 @@
-﻿
----namespace-needle---
-
+﻿---entity-file-setup-needle---
 public class ---entity-name-needle---
 {
 

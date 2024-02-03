@@ -21,13 +21,14 @@ public static class ProjectMappings
     };
   }
 
-  public static ModuleCreateDto MapToModuleCreateDto(ProjectSettings projectSettings, string modulesPath)
+  public static ModuleCreateDto MapToModuleCreateDto(ProjectSettings projectSettings, string modulesPath, string projectName)
   {
     return new ModuleCreateDto
     {
      EntitySingularName = projectSettings.EntityNameFormModel.EntitySingularName,
      EntityPluralName = projectSettings.EntityNameFormModel.EntityPluralName,
      ModulesPath = modulesPath,
+     ProjectName = projectName,
      EnableRepository = projectSettings.IsRepositoryEnabled,
      EnableValidators = projectSettings.AreValidatorsEnabled,
      EnableUpsertDto = projectSettings.IsUpsertDtoEnabled,
