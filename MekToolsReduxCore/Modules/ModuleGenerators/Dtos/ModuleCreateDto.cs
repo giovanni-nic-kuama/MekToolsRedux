@@ -6,7 +6,7 @@ public class ModuleCreateDto
 
   public string EntityPluralName { get; init; } = null!;
 
-  public string DestinationPath { get; init; } = null!;
+  public string ModulesPath { get; init; } = null!;
 
   public bool EnableValidators { get; init; }
 

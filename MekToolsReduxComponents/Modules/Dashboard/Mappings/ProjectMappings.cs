@@ -27,7 +27,7 @@ public static class ProjectMappings
     {
      EntitySingularName = projectSettings.EntityNameFormModel.EntitySingularName,
      EntityPluralName = projectSettings.EntityNameFormModel.EntityPluralName,
-     DestinationPath = modulesPath,
+     ModulesPath = modulesPath,
      EnableRepository = projectSettings.IsRepositoryEnabled,
      EnableValidators = projectSettings.AreValidatorsEnabled,
      EnableUpsertDto = projectSettings.IsUpsertDtoEnabled,

@@ -2,6 +2,7 @@
 using MekToolsReduxComponents.Modules.Dashboard.Mappings;
 using MekToolsReduxComponents.Modules.Dashboard.Models;
 using MekToolsReduxComponents.Modules.Dashboard.ViewUtils;
+using MekToolsReduxCore.Modules.ModuleGenerators.Services;
 using MekToolsReduxCore.Modules.ModulePreviews.Models;
 using MekToolsReduxCore.Modules.ModulePreviews.Services;
 using MekToolsReduxCore.Modules.ProjectFolders.Models;
@@ -53,7 +54,7 @@ public partial class DashboardPage
       var moduleCreateDto = ProjectMappings
         .MapToModuleCreateDto(ProjectSettings, ProjectInfos.ModulesPath);
       
-      
+      ModuleGeneratorService.GenerateModule(moduleCreateDto);
     }
   }
 
