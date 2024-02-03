@@ -40,7 +40,11 @@ public static class ModuleGeneratorService
     // Step 7) Generate Mappings folder and Mappings Class
     MappingsFileRepository.CreateMappingsFolderAndGenerateTemplate(modulePath: modulePath, dto: dto);
 
-    // Step 8) TODO: Validators?, they need entities and dtos
+    if (dto.EnableValidators)
+    {
+      // Step 8) Generate Validators folder and Validator Classes
+      ValidatorsFileRepository.CreateValidatorsFolderAndGenerateClasses(modulePath: modulePath, dto: dto); 
+    }
 
     // Step 9) TODO: Controllers, they entities and dtos
   }

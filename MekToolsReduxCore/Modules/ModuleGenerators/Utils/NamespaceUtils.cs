@@ -31,4 +31,9 @@ public static class NamespaceUtils
   {
     return $"{projectName}.Modules.{entityPluralName}.Mappings";
   }
+
+  public static string ComposeValidatorsNameSpace(string projectName, string entityPluralName)
+  {
+    return $"{projectName}.Modules.{entityPluralName}.Validators";
+  }
 }

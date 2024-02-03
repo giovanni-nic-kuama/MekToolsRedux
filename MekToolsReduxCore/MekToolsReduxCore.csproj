@@ -10,6 +10,7 @@
     <EmbeddedResource Include="Resources\Entity.txt"/>
     <EmbeddedResource Include="Resources\Mappings.txt"/>
     <EmbeddedResource Include="Resources\MappingsForUpsert.txt"/>
+    <EmbeddedResource Include="Resources\Validator.txt"/>
     <EmbeddedResource Include="Resources\EntityConfiguration.txt"/>
     <EmbeddedResource Include="Resources\Controller.txt"/>
     <EmbeddedResource Include="Resources\GenericClass.txt"/>

@@ -1,0 +1,10 @@
+using FluentValidation;
+---imports-and-namespace-needle---
+
+public class ---dto-name---Validator : AbstractValidator<---dto-name--->
+{
+  public ---dto-name---Validator()
+  {
+    
+  }
+}
