@@ -16,4 +16,19 @@ public static class NamespaceUtils
   {
     return $"{projectName}.Modules.{entityPluralName}.Dtos";
   }
+
+  public static string ComposeServiceNameSpace(string projectName, string entityPluralName)
+  {
+    return $"{projectName}.Modules.{entityPluralName}.Services";
+  }
+
+  public static string ComposeRepositoryNameSpace(string projectName, string entityPluralName)
+  {
+    return $"{projectName}.Modules.{entityPluralName}.Repositories";
+  }
+
+  public static string ComposeMappingsNameSpace(string projectName, string entityPluralName)
+  {
+    return $"{projectName}.Modules.{entityPluralName}.Mappings";
+  }
 }

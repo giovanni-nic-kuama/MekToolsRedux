@@ -21,13 +21,28 @@ public static class ModuleGeneratorService
     {
       EntityConfigurationFileRepository.CreateEntitiesConfigurationFolderAndGenerateTemplate(
         modulePath: modulePath,
-        dto: dto);
+        dto: dto
+      );
     }
-    
+
     // Step 4) Generate Dtos folder and Dtos files based on configuration
     DtosFileRepository.CreateDtosFolderAndGenerateTemplates(modulePath: modulePath, dto: dto);
+
+    // Step 5) Generate Services folder and IService an Service
+    ServiceFileRepository.CreateServicesFolderAndGenerateTemplates(modulePath: modulePath, dto: dto);
+
+    // Step 6) Generate Repositories folder and Repository Class, if enabled
+    if (dto.EnableRepository)
+    {
+      RepositoryFileRepository.CreateRepositoriesFolderAndGenerateTemplate(modulePath: modulePath, dto: dto);
+    }
     
-    // Step 5) TODO: Mappings?
+    // Step 7) Generate Mappings folder and Mappings Class
+    MappingsFileRepository.CreateMappingsFolderAndGenerateTemplate(modulePath: modulePath, dto: dto);
+
+    // Step 8) TODO: Validators?, they need entities and dtos
+
+    // Step 9) TODO: Controllers, they entities and dtos
   }
 
   private static void CreateModuleFolderAndDeleteIfFolderAlreadyExists(string modulePath)

@@ -1,0 +1,49 @@
+---imports-and-namespace-needle---
+
+/// <summary>
+/// Mappings for <see cref="---entity-name-needle---"/>, <see cref="---read-dto---"/>, <see cref="---create-dto---"/>, 
+/// <see cref="---update-dto---"/>
+/// </summary>
+public static class ---entity-name-needle---Mappings
+{
+  /// <summary>
+  /// Map from <see cref="---entity-name-needle---"/> to <see cref="---read-dto---"/>
+  /// </summary>
+  /// <param name="entity">Entity to be mapped</param>
+  /// <returns>Entity mapped to <see cref="---read-dto---"/></returns>
+  public static ---read-dto--- Map(---entity-name-needle--- entity)
+  {
+    return new ---read-dto--- {  };
+  }
+
+  /// <summary>
+  /// Map from a list of <see cref="---entity-name-needle---"/> to a list of <see cref="---read-dto---"/>
+  /// </summary>
+  /// <param name="entities">List of <see cref="---entity-name-needle---"/> to be mapped</param>
+  /// <returns>List of entities mapped to a list of <see cref="---read-dto---"/></returns>
+  public static List<---read-dto---> Map(IEnumerable<---entity-name-needle---> entities)
+  {
+    return entities.Select(Map).ToList();
+  }
+
+  /// <summary>
+  /// Map from <see cref="---create-dto---"/> to <see cref="---entity-name-needle---"/>
+  /// </summary>
+  /// <param name="createDto"><see cref="---create-dto---"/> to be mapped into an entity of type <see cref="---entity-name-needle---"/></param>
+  /// <returns>The entity <see cref="---entity-name-needle---"/> mapped from <see cref="---create-dto---"/></returns>
+  public static ---entity-name-needle--- Map(---create-dto--- createDto)
+  {
+    return new ---entity-name-needle--- {  };
+  }
+  
+  /// <summary>
+  /// Patch the entity <see cref="---entity-name-needle---"/> from a <see cref="---update-dto---"/>
+  /// </summary>
+  /// <param name="entity">Entity to be patched</param>
+  /// <param name="dto"><see cref="---update-dto---"/> containing the new values for patching the entity <see cref="---entity-name-needle---"/></param>
+  /// <returns></returns>
+  public static void Patch(---entity-name-needle--- entity, ---update-dto--- dto)
+  {
+    
+  }
+}
