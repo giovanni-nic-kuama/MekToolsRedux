@@ -46,7 +46,8 @@ public static class ModuleGeneratorService
       ValidatorsFileRepository.CreateValidatorsFolderAndGenerateClasses(modulePath: modulePath, dto: dto); 
     }
 
-    // Step 9) TODO: Controllers, they entities and dtos
+    // Step 9) Generate Controllers folder and Controller Class
+    ControllersFileRepository.CreateControllersFolderAndGenerateTemplate(modulePath: modulePath, dto: dto);
   }
 
   private static void CreateModuleFolderAndDeleteIfFolderAlreadyExists(string modulePath)
