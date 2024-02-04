@@ -1,25 +1,19 @@
 ﻿name: Build .NET MAUI Windows
 
 on:
-  workflow_dispatch:
-    inputs:
-      targetPlatform:
-        description: 'Target Platform'
-        required: true
-        default: 'windows'
-        type: choice
-        options:
-          - windows
-        
+  push:
+    tags:
+      - 'windows-*'
+
 jobs:
   build:
     runs-on: windows-latest
     steps:
-      - run: |
-          echo "Platform chosen: PLATFORM"
-        env:
-          PLATFORM: ${{ inputs.targetPlatform }}
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - run: dotnet restore
-      - run: cd MekToolsReduxApp
       - run: dotnet publish -f net7.0-windows10.0.19041.0 -c Release -p:WindowsPackageType=None -p:WindowsAppSDKSelfContained=true
+      - uses: actions/upload-artifact@v4
+        with:
+          name: MekToolsReduxApp-${{github.ref_name}}
+          path: 'MekToolsReduxApp\bin\Release\net7.0-windows10.0.19041.0\win10-x64\publish\'
+          retention-days: 90
