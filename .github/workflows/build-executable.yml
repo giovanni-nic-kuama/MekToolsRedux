@@ -1,4 +1,6 @@
-﻿on:
+﻿name: Build .NET MAUI Windows
+
+on:
   workflow_dispatch:
     inputs:
       targetPlatform:
@@ -10,7 +12,7 @@
           - windows
         
 jobs:
-  log-the-inputs:
+  build:
     runs-on: windows-latest
     steps:
       - run: |
@@ -18,7 +20,6 @@ jobs:
         env:
           PLATFORM: ${{ inputs.targetPlatform }}
       - uses: actions/checkout@v3
-      - uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: '7.0.x'
-      - run: dotnet publish --configuration Release --self-contained --framework "net7.0-windows10.0.19041.0"
+      - run: dotnet restore
+      - run: cd MekToolsReduxApp
+      - run: dotnet publish -f net7.0-windows10.0.19041.0 -c Release -p:WindowsPackageType=None -p:WindowsAppSDKSelfContained=true
